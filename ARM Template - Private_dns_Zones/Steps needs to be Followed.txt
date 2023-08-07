@@ -1,0 +1,35 @@
+
+1. First Create 2-Vnet's.
+ 
+2. Create a subnet in both of the Vnet's.
+
+3. Spin Up 2-VM's of each subnet from both Vnet's.
+
+4. Test whether logging to both VM's or not - If able to login, then proceed with dns zone creation.
+				              If not able to login, then make sure there should be correct subnet associations for NSG's & NIC's.
+
+	(Note: Make sure avoid associating multiple NSG's for a subnet, Try to apply single NSG for multiple VM's
+	       Prefer to create Username & Passwords irrespective of any VM machine (windows & linux) instead of downloading pem or RDP Files
+	       which gives a smooth login.) 
+
+5. Then create a private DNS Zone and link mulitple Vnet's into DNS Zone.
+
+	Please run the below commands on both the VM's:
+
+		1. Sudo apt update,upgrade
+		   sudo apt-get install firewalld   (# For Debian/Ubuntu-based systems)
+
+		2. sudo systemctl enable firewalld
+		   sudo systemctl start firewalld
+
+		3. sudo firewall-cmd --zone=public --add-protocol=icmp --permanent
+
+		4. sudo iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+
+		5. sudo firewall-cmd --reload - (Optional)
+
+6. By default after linking virtual Vnet's, DNS records will be created automatically for each VM.
+   but make sure delete default DNS Records and create New DNS Records with same name add both the private Ip's of VM's into each record.
+   so that finally we can able to ping over One to Another VM.
+      
+
