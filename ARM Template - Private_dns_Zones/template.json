@@ -41,7 +41,10 @@
         "virtualNetworks_linked_az_Vnet_2_name": {
             "defaultValue": "linked-az-Vnet-2",
             "type": "String"
-        }
+        },
+        "adminPassword": {
+            "type": "securestring"
+        }           
     },
     "variables": {},
     "resources": [
@@ -157,8 +160,7 @@
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
-                            "storageAccountType": "StandardSSD_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_Vm_001_name'), '_OsDisk_1_dee602a5f04847a1b9f57c342eb32f18'))]"
+                            "storageAccountType": "StandardSSD_LRS"
                         },
                         "deleteOption": "Delete",
                         "diskSizeGB": 30
@@ -169,6 +171,7 @@
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_Vm_001_name')]",
                     "adminUsername": "SRK-005",
+                    "adminPassword": "[parameters('Zxcv;lkj12345@#')]",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": false,
                         "provisionVMAgent": true,
@@ -180,7 +183,7 @@
                     },
                     "secrets": [],
                     "allowExtensionOperations": true,
-                    "requireGuestProvisionSignal": true
+                    "requireGuestProvisionSignal": false
                 },
                 "securityProfile": {
                     "uefiSettings": {
@@ -234,8 +237,7 @@
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
-                            "storageAccountType": "StandardSSD_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_Vm_002_name'), '_OsDisk_1_7f5695bab76f4192833c601335dea5fe'))]"
+                            "storageAccountType": "StandardSSD_LRS"
                         },
                         "deleteOption": "Delete",
                         "diskSizeGB": 30
@@ -246,6 +248,7 @@
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_Vm_002_name')]",
                     "adminUsername": "SRK-005",
+                    "adminPassword": "[parameters('Zxcv;lkj12345@#')]",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": false,
                         "provisionVMAgent": true,
@@ -257,7 +260,7 @@
                     },
                     "secrets": [],
                     "allowExtensionOperations": true,
-                    "requireGuestProvisionSignal": true
+                    "requireGuestProvisionSignal": false
                 },
                 "securityProfile": {
                     "uefiSettings": {
