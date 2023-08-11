@@ -1,0 +1,26 @@
+https://github.com/Azure
+
+VM Issues Faced during creating Private DNS Deployment:
+
+	below are issues and their resolutions:
+
+1. osDisk.managedDisk.id removed - : Parameter 'osDisk.managedDisk.id' is not allowed. (Code: InvalidParameter, Target: osDisk.managedDisk.id)
+		1. "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_Vm_001_name'), '_OsDisk_1_dee602a5f04847a1b9f57c342eb32f18'))]" - removed the id property of OsDisk
+		2. Replace managed disk storage account type "standard_LRS" to "Premimum_LRS"
+2. requireGuestProvisionSignal removed:			
+3. Required parameter 'adminPassword' is missing (null). (Code: InvalidParameter, Target: adminPassword):
+		1. "adminPassword": "string(secret[Zxcv;lkj12345@#])" - 'adminPassword' parameter added in secret format
+		2. "adminPassword": {			- specify type of password value for a variable "adminPassword" in parameters list
+            		"type": "securestring"
+        	    }  
+
+Finally deploy from cloud-shell through below command:
+
+New-AzResourceGroup -Name az-private-dns-rg -Location "East US 2"
+New-AzResourceGroupDeployment `
+  -DeploymentName Dns-Deployment `
+  -ResourceGroupName az-private-dns-rg `
+  -TemplateFile template.json `
+
+
+	Above command will creates resource group and its resources automatically from azure cloud shell.
