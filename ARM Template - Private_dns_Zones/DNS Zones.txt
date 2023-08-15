@@ -20,7 +20,17 @@ New-AzResourceGroup -Name az-private-dns-rg -Location "East US 2"
 New-AzResourceGroupDeployment `
   -DeploymentName Dns-Deployment `
   -ResourceGroupName az-private-dns-rg `
-  -TemplateFile template.json `
+  -TemplateFile template.json 
 
 
 	Above command will creates resource group and its resources automatically from azure cloud shell.
+
+{
+  "code": "BadRequest",
+  "target": "vm.properties.networkInterfaces",
+  "message": "Could not find member 'networkInterfaces' on object of type 'Properties'. Path 'properties.networkInterfaces', line 1, position 999."
+}
+
+          "networkProfile": {
+              "privateDnsZone": "private.poc.com",
+              "virtualNetwork": "linked-az-Vnet-2",
